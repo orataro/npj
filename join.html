@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JOIN - NEW PESSI JEANS</title>
+  <link rel="stylesheet" href="npj.css">
+</head>
+<body>
+
+<div class="bg-slider">
+  <img src="./S__37945348.jpg" class="active">
+  <img src="./S__37945349.jpg">
+  <img src="./S__37945350.jpg">
+</div>
+
+<section class="join-wrapper">
+  <div class="join-card">
+    <h2>CLUB ENTRY</h2>
+
+<p class="subtitle">クラブ加入申請</p>
+
+<form action="success.html">
+
+  <!-- 名前 -->
+  <div class="input-box">
+    <input type="text" required>
+    <label>プレイヤー名</label>
+  </div>
+
+  <!-- 生年月日 -->
+ <div class="input-box">
+  <input type="text"
+         id="birthdate"
+         required
+         onfocus="this.type='date'"
+         onblur="if(!this.value)this.type='text'">
+  <label>生年月日</label>
+</div>
+
+  <!-- 希望ポジション -->
+  <div class="input-box">
+    <select required class="position-select">
+      <option value="" disabled selected>希望ポジションを選択</option>
+      <option>GK</option>
+      <option>CB</option>
+      <option>SB</option>
+      <option>DMF</option>
+      <option>CMF</option>
+      <option>OMF</option>
+      <option>WG</option>
+      <option>ST</option>
+    </select>
+  </div>
+
+  <!-- 備考 -->
+  <div class="input-box">
+    <textarea></textarea>
+    <label>備考（任意）</label>
+  </div>
+
+  <button type="submit" class="join-btn">
+    <span class="btn-text">APPLY NOW</span>
+    <div class="loader"></div>
+  </button>
+
+</form>
+
+<script src="join.js"></script>
+</body>
+</html>

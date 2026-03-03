@@ -337,3 +337,407 @@ a:hover {
   display: flex;
   gap: 20px;
 }
+
+
+.join-cta {
+  padding: 120px 20px;
+  background: linear-gradient(135deg, #000, #111);
+  text-align: center;
+}
+
+.join-box {
+  display: inline-block;
+  padding: 60px 100px;
+  border: 2px solid gold;
+  text-decoration: none;
+  color: white;
+  transition: 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.join-box h2 {
+  color: gold;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+}
+
+.join-box span {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.join-box:hover {
+  background: gold;
+  color: black;
+  transform: scale(1.05);
+}
+
+.success-section {
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.success-box {
+  text-align: center;
+}
+
+.check {
+  font-size: 80px;
+  color: gold;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 30px;
+  background: gold;
+  color: black;
+  text-decoration: none;
+}
+
+/* 背景スライダー */
+.bg-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.bg-slider img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.bg-slider img.active {
+  opacity: 1;
+}
+
+/* 黒グラデオーバーレイ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+  z-index: -1;
+}
+
+/* フォーム中央配置 */
+.join-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ガラスカード */
+.join-card {
+  width: 420px;
+  padding: 50px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+.join-card h2 {
+  color: gold;
+  letter-spacing: 3px;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  opacity: 0.7;
+}
+
+/* 入力欄 */
+.input-box {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-box input,
+.input-box textarea {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid gold;
+  color: white;
+  outline: none;
+}
+
+.input-box textarea {
+  height: 70px;
+  resize: none;
+}
+
+.input-box label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  transition: 0.3s;
+  color: #aaa;
+  pointer-events: none;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label,
+.input-box textarea:focus + label,
+.input-box textarea:valid + label {
+  top: -15px;
+  font-size: 12px;
+  color: gold;
+}
+
+/* 発光ボタン */
+.join-btn {
+  margin-top: 20px;
+  padding: 12px 40px;
+  background: gold;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 20px gold;
+}
+
+.join-btn:hover {
+  background: white;
+  box-shadow: 0 0 40px gold;
+}
+
+/* ローディングスピナー */
+.loader {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(0,0,0,0.3);
+  border-top: 3px solid black;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.join-btn.loading .btn-text {
+  display: none;
+}
+
+.join-btn.loading .loader {
+  display: inline-block;
+}
+
+/* 日付入力 */
+.date-input {
+  color: white;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* select共通 */
+.position-select {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #0f3d1c, #145a2a);
+  border: 2px solid gold;
+  color: white;
+  border-radius: 8px;
+  outline: none;
+  font-weight: bold;
+}
+
+/* 選択後の色問題解決 */
+.position-select:focus {
+  background: linear-gradient(135deg, #145a2a, #1d6b34);
+  color: white;
+}
+
+/* optionの文字色 */
+.position-select option {
+  background: #0f3d1c;
+  color: white;
+}
+
+/* フォーメーションボタン */
+.formation-switch {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.formation-switch button {
+  padding: 8px 20px;
+  border: 1px solid gold;
+  background: transparent;
+  color: gold;
+  cursor: pointer;
+}
+
+/* ピッチ */
+.pitch-wrapper {
+  position: relative;
+  margin-top: 30px;
+}
+
+.pitch {
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(#157a3a, #0e5c2b);
+  border: 3px solid white;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* センターライン */
+.pitch::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: white;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ポジション丸 */
+.player-dot {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 選択時（水色発光） */
+.player-dot.active {
+  background: #00d4ff;
+  box-shadow: 0 0 20px #00d4ff;
+  color: black;
+}
+
+/* 完了ボタン */
+.complete-btn {
+  position: absolute;
+  bottom: -50px;
+  right: 0;
+  padding: 8px 20px;
+  background: gold;
+  border: none;
+  cursor: pointer;
+}
+
+#birthdate {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid gold;
+  color: white;
+  outline: none;
+}
+
+#birthdate::placeholder {
+  color: #aaa;
+}
+
+#birthdate {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid gold;
+  color: white;
+  outline: none;
+}
+
+.success-page {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  text-align: center;
+}
+
+.success-container h1 {
+  font-size: 48px;
+  margin: 20px 0;
+  color: gold;
+  letter-spacing: 3px;
+}
+
+.success-container p {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* ボール */
+.ball {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/d/d3/Soccerball.svg') center/contain no-repeat;
+  animation: spinBall 2s linear infinite;
+}
+
+@keyframes spinBall {
+  to { transform: rotate(360deg); }
+}
+
+/* Instagram誘導ボタン */
+.insta-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #E1306C;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.insta-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 戻る */
+.back-home {
+  display: block;
+  margin-top: 20px;
+  color: gold;
+  text-decoration: none;
+}
