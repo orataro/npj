@@ -332,3 +332,8 @@ a:hover {
   height: 400px;
   object-fit: contain;
 }
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
