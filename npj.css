@@ -681,3 +681,97 @@ body::after {
   outline: none;
 }
 
+.success-page {
+  margin: 0;
+  padding: 0;
+  background: black;
+}
+
+.success-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-box {
+  text-align: center;
+}
+
+.check {
+  font-size: 100px;
+  color: gold;
+}
+
+/* ===== SUCCESS PAGE ===== */
+
+.success-page {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-container {
+  text-align: center;
+  color: white;
+}
+
+.success-container h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.success-container p {
+  opacity: 0.8;
+  margin: 5px 0;
+}
+
+/* ボールアニメ */
+.ball {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 30px;
+  background-image: url("./ball2.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Instagramボタン */
+.insta-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 35px;
+  background: linear-gradient(45deg,#feda75,#d62976,#962fbf);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.insta-btn:hover {
+  transform: scale(1.08);
+}
+
+/* TOPへ戻る */
+.back-home {
+  display: block;
+  margin-top: 25px;
+  color: gold;
+  text-decoration: none;
+}
+.success-page {
+  padding-top: 0 !important;
+}
