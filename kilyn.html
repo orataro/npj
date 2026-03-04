@@ -108,6 +108,8 @@
 .df-c { top: 75%; left: 50%; }
 .df-r { top: 70%; left: 72%; }
 
+
+
 .back-btn {
   display: inline-block;
   margin-top: 40px;
@@ -116,6 +118,39 @@
   border: 1px solid white;
   padding: 10px 25px;
   border-radius: 20px;
+}
+
+/* ===== 📱 MOBILE ===== */
+@media (max-width: 768px) {
+
+  .profile {
+    padding: 30px 15px;
+  }
+
+  .profile-img {
+    width: 70vw;
+    height: 70vw;
+    max-width: 260px;
+    max-height: 260px;
+  }
+
+  .info {
+    font-size: 16px;
+  }
+
+  .field {
+    width: 85vw;
+    height: 130vw;
+    max-width: 320px;
+    max-height: 480px;
+  }
+
+  .back-btn {
+    margin-top: 30px;
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
 }
 </style>
 </head>
@@ -168,6 +203,8 @@
       <span class="pos df-l"></span>
       <span class="pos df-c"></span>
       <span class="pos df-r active"></span>
+
+      <span class="pos gk"></span>
 
     </div>
   </div>
