@@ -122,7 +122,7 @@ section {
 
 .members .card {
   width: 220px;
-  background: #f36954;
+  background: #000000;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -1172,3 +1172,173 @@ body::after {
   object-fit: cover;
 }
 }
+
+.news-arrow{
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  transition:0.3s;
+}
+
+.card:hover .news-arrow{
+  transform:translateY(-50%) translateX(6px);
+}
+
+.cards{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+
+.news-card{
+
+  position:relative;
+
+  width:260px;
+  padding:25px;
+
+  background:#111;
+
+  border:1px solid #333;
+
+  color:white;
+  text-decoration:none;
+
+  transition:0.35s;
+}
+
+/* 金ライン */
+.news-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:0%;
+  height:2px;
+
+  background:gold;
+
+  transition:0.4s;
+}
+
+/* 矢印 */
+
+.news-arrow{
+
+  position:absolute;
+
+  right:20px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  opacity:0.6;
+
+  transition:0.3s;
+}
+
+/* ホバー */
+
+.news-card:hover{
+
+  transform:translateY(-8px);
+
+  border-color:gold;
+
+  box-shadow:
+  0 0 10px rgba(255,215,0,0.4),
+  0 0 25px rgba(255,215,0,0.2);
+
+}
+
+/* 金ライン出現 */
+
+.news-card:hover::before{
+
+  width:100%;
+
+}
+
+/* 矢印スライド */
+
+.news-card:hover .news-arrow{
+
+  transform:translateY(-50%) translateX(8px);
+
+  opacity:1;
+
+}
+
+@media (max-width:768px){
+
+.cards{
+  flex-direction:column;
+  align-items:center;
+}
+
+.news-card{
+  width:90%;
+}
+
+}
+
+.news h2{
+  text-align:center;
+  font-size:40px;
+  letter-spacing:5px;
+}
+
+.card{
+
+  background:#000;
+
+  border:1px solid gold;
+
+  border-radius:10px;
+
+  padding:20px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  color:white;
+
+  transition:0.3s;
+
+}
+
+.card:hover{
+
+  transform:translateY(-15px);
+
+  box-shadow:
+  0 0 10px rgba(255,215,0,0.5),
+  0 0 20px rgba(255,215,0,0.3);
+
+}
+
+.card img{
+
+  width:100%;
+
+  border-radius:8px;
+
+}
+
+.card h3{
+
+  margin-top:15px;
+
+  font-size:20px;
+
+  letter-spacing:2px;
+
+}                                                                                                                                                                                                              
