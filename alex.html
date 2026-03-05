@@ -14,10 +14,6 @@ body {
   color: #fff;
 }
 
-.profile {
-  text-align: center;
-  padding: 50px 20px;
-}
 
 .profile-img {
   width: 250px;
@@ -31,23 +27,25 @@ body {
 .info {
   font-size: 18px;
   line-height: 1.8;
+  text-align: center;
 }
 
 /* ===== フィールド ===== */
 
-.field-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+.field-wrap{
+  margin-top:40px;
+  text-align:center;
 }
 
-.field {
+.field{
   position: relative;
   width: 300px;
   height: 460px;
   background: #1b7f3a;
   border: 4px solid white;
   border-radius: 12px;
+
+  margin: auto;   /* ←これ追加 */
 }
 
 /* ライン */
@@ -99,6 +97,25 @@ body {
   background: #00ffff;
   animation: blink 1s infinite;
   box-shadow: 0 0 12px #00ffff;
+}
+
+
+
+.profile{
+  text-align:center;
+  padding:120px 20px 50px;
+  max-width:700px;
+  margin:auto;
+}
+
+.profile h1{
+  text-align:center;
+  margin-top:10px;
+}
+
+.profile-img{
+  display:block;
+  margin:auto;
 }
 
 @keyframes blink {
