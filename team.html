@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>NEW PESSI JEANS | TEAM RECORD</title>
+<link rel="stylesheet" href="npj.css">
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">NEW PESSI JEANS</a>
+  <nav>
+    <a href="NEWS.html">NEWS</a>
+    <a href="member.html">MEMBERS</a>
+    <a href="MATCH.html">MATCH</a>
+    <a href="stats.html">STATS</a>
+    <a href="team.html">TEAM RECORD</a>
+    <a href="ABOUT.html">ABOUT</a>
+    <a href="GALLERY.html">GALLERY</a>
+  </nav>
+</header>
+
+<section class="team-record">
+<h1>TEAM RECORD</h1>
+
+<div class="team-stats">
+  <p>🔥 Total Matches: <span id="totalMatches">0</span></p>
+  <p>⚽ Total Goals: <span id="totalGoals">0</span></p>
+  <p>🎯 Total Assists: <span id="totalAssists">0</span></p>
+  <p>🏆 Top Scorer: <span id="topScorer">-</span></p>
+</div>
+
+<div class="team-ranking">
+  <h2>GOAL RANKING</h2>
+  <ul id="goalList"></ul>
+
+  <h2>ASSIST RANKING</h2>
+  <ul id="assistList"></ul>
+</div>
+</section>
+
+<script>
+/* =======================
+試合データ（全シーズン）
+======================= */
+const seasons = {
+  "2026":[
+    {date:"2026-03-05", players:["Ryota","Orataro","Miyabi","Ishan","Kaito"], scorers:["Ryota"], assists:["Kaito"]},
+    {date:"2026-03-10", players:["Ryota","Miyabi","Kaito"], scorers:["Miyabi"], assists:["Ryota"]}
+  ],
+  "2027":[
+    {date:"2027-04-10", players:["Ryota","Miyabi"], scorers:["Miyabi"], assists:["Ryota"]}
+  ]
+}
+
+/* =======================
+選手データ
+======================= */
+const players = [
+  {name:"Ryota", goals:0, assists:0, matches:0},
+  {name:"Orataro", goals:0, assists:0, matches:0},
+  {name:"Miyabi", goals:0, assists:0, matches:0},
+  {name:"Ishan", goals:0, assists:0, matches:0},
+  {name:"Yuma", goals:0, assists:0, matches:0},
+  {name:"Kilyn", goals:0, assists:0, matches:0},
+  {name:"Taro", goals:0, assists:0, matches:0},
+  {name:"Aleks", goals:0, assists:0, matches:0},
+  {name:"KO", goals:0, assists:0, matches:0}
+]
+
+/* =======================
+全シーズンをまとめて計算
+======================= */
+function calculateTeamRecord(){
+  // 初期化
+  players.forEach(p => {p.goals=0; p.assists=0; p.matches=0})
+
+  let totalMatches=0
+  let totalGoals=0
+  let totalAssists=0
+
+  for(const season in seasons){
+    seasons[season].forEach(match=>{
+      totalMatches++
+      match.players.forEach(name=>{
+        const player = players.find(p=>p.name===name)
+        if(player) player.matches++
+      })
+      match.scorers.forEach(name=>{
+        const player = players.find(p=>p.name===name)
+        if(player){player.goals++; totalGoals++}
+      })
+      match.assists.forEach(name=>{
+        const player = players.find(p=>p.name===name)
+        if(player){player.assists++; totalAssists++}
+      })
+    })
+  }
+
+  // ランキング作成
+  const goalRanking = [...players].sort((a,b)=>b.goals-a.goals)
+  const assistRanking = [...players].sort((a,b)=>b.assists-a.assists)
+  const topScorer = goalRanking[0] ? `${goalRanking[0].name} (${goalRanking[0].goals}G)` : "-"
+
+  // 表示
+  document.getElementById("totalMatches").innerText = totalMatches
+  document.getElementById("totalGoals").innerText = totalGoals
+  document.getElementById("totalAssists").innerText = totalAssists
+  document.getElementById("topScorer").innerText = topScorer
+
+  const goalList = document.getElementById("goalList")
+  const assistList = document.getElementById("assistList")
+  goalList.innerHTML=""
+  assistList.innerHTML=""
+
+  goalRanking.forEach(p=>{
+    if(p.goals>0) goalList.innerHTML+=`<li>${p.name}: ${p.goals}G</li>`
+  })
+  assistRanking.forEach(p=>{
+    if(p.assists>0) assistList.innerHTML+=`<li>${p.name}: ${p.assists}A</li>`
+  })
+}
+
+/* 初期ロード */
+calculateTeamRecord()
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>NEW PESSI JEANS | STATS</title>
+<link rel="stylesheet" href="npj.css">
+</head>
+
+<body>
+
+<header class="header">
+  
+   <a href="index.html" class="logo">NEW PESSI JEANS</a>
+
+  <nav>
+    <a href="NEWS.html">NEWS</a>
+    <a href="member.html">MEMBERS</a>
+    <a href="MATCH.html">MATCH</a>
+    <a href="stats.html">STATS</a>
+    <a href="team.html">TEAM RECORD</a>
+    <a href="ABOUT.html">ABOUT</a>
+    <a href="GALLERY.html">GALLERY</a>
+  </nav>
+</header>
+
+<section class="stats">
+
+<h1 class="stats-title">PLAYER STATS</h1>
+
+<input type="text" id="playerSearch" placeholder="🔍 Search Player..." class="player-search">
+
+<div class="season-switch">
+
+<button onclick="loadSeason('2026')">2026 SEASON</button>
+<button onclick="loadSeason('2027')">2027 SEASON</button>
+
+</div>
+<h2>2026/3/5~</h2>
+
+<div class="stats-section">
+<h2>GOAL RANKING</h2>
+<table class="ranking" id="goalTable">
+<thead>
+<tr>
+<th>No.</th>
+<th>PLAYER</th>
+<th>GOALS</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div class="stats-section">
+<h2>ASSIST RANKING</h2>
+<table class="ranking" id="assistTable">
+<thead>
+<tr>
+<th>No.</th>
+<th>PLAYER</th>
+<th>ASSISTS</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div class="stats-section">
+<h2>PLAYER STATS</h2>
+<div class="player-stats-cards" id="playerCards"></div>
+</div>
+
+
+
+</section>
+<script>
+const seasons = {
+  "2026": [
+    {date:"2026-03-05", players:["Ryota","Orataro","Miyabi","Ishan","Kaito"], scorers:["Ryota"], assists:["Kaito"]},
+  ],
+  "2027": [
+    {date:"2027-04-10", players:["Ryota","Miyabi"], scorers:["Miyabi"], assists:["Ryota"]},
+  ]
+};
+
+const players = [
+  {name:"Ryota", image:"ryouta.png", link:"ryota.html", goals:0, assists:0, matches:0},
+  {name:"Orataro", image:"kento.png", link:"orataro.html", goals:0, assists:0, matches:0},
+  {name:"Miyabi", image:"kimoiyatukarakitagazou.png", link:"miyabi.html", goals:0, assists:0, matches:0},
+  {name:"Ishan", image:"isan2.png", link:"pessi.html", goals:0, assists:0, matches:0},
+  {name:"Yuma", image:"yumasan2.png", link:"yuma.html", goals:0, assists:0, matches:0},
+  {name:"Kilyn", image:"Kilyn2222.png", link:"kilyn.html", goals:0, assists:0, matches:0},
+  {name:"Taro", image:"tarou2.png", link:"tarou.html", goals:0, assists:0, matches:0},
+  {name:"Aleks", image:"alex2.png", link:"alex.html", goals:0, assists:0, matches:0},
+  {name:"KO", image:"kosann2.png", link:"KOsann.html", goals:0, assists:0, matches:0},
+];
+
+// --- シーズン読み込み ---
+function loadSeason(season) {
+
+  // localStorage のデータを優先
+  let seasonData = JSON.parse(localStorage.getItem(`season_${season}`)) || seasons[season];
+
+  // 選手データ初期化
+  players.forEach(p => { p.goals=0; p.assists=0; p.matches=0; });
+
+  // 試合データから自動計算
+  seasonData.forEach(match => {
+    match.players.forEach(name => {
+      const player = players.find(p => p.name === name);
+      if(player) player.matches++;
+    });
+    match.scorers.forEach(name => {
+      const player = players.find(p => p.name === name);
+      if(player) player.goals++;
+    });
+    match.assists.forEach(name => {
+      const player = players.find(p => p.name === name);
+      if(player) player.assists++;
+    });
+  });
+
+  // --- ランキング ---
+  const goalRanking = [...players].sort((a,b)=>b.goals-a.goals);
+  const assistRanking = [...players].sort((a,b)=>b.assists-a.assists);
+  const gaRanking = [...players].sort((a,b)=>(b.goals+b.assists)-(a.goals+a.assists));
+
+  goalRanking.forEach((p,i)=>p.goalRank=i+1);
+  assistRanking.forEach((p,i)=>p.assistRank=i+1);
+  gaRanking.forEach((p,i)=>p.gaRank=i+1);
+
+  // --- 表更新 ---
+  const goalBody = document.querySelector("#goalTable tbody");
+  const assistBody = document.querySelector("#assistTable tbody");
+  const cards = document.getElementById("playerCards");
+
+  goalBody.innerHTML = "";
+  assistBody.innerHTML = "";
+  cards.innerHTML = "";
+
+  goalRanking.forEach((p,i)=>{
+    goalBody.innerHTML += `<tr><td>${i+1}</td><td>${p.name}</td><td>${p.goals}</td></tr>`;
+  });
+
+  assistRanking.forEach((p,i)=>{
+    assistBody.innerHTML += `<tr><td>${i+1}</td><td>${p.name}</td><td>${p.assists}</td></tr>`;
+  });
+
+  players.forEach(p=>{
+    let badge = "";
+    if(p.goalRank===1) badge="🥇";
+    else if(p.goalRank===2) badge="🥈";
+    else if(p.goalRank===3) badge="🥉";
+
+    let topClass = p.goalRank===1 ? "top-player" : "";
+
+    cards.innerHTML += `
+      <a href="${p.link}" class="player-card ${topClass}">
+        <img src="${p.image}">
+        <h3>${badge} ${p.name}</h3>
+        <div class="stat"><span>📅 MATCHES</span><span>${p.matches}</span></div>
+        <div class="stat"><span>⚽ GOALS</span><span>${p.goals}</span></div>
+        <div class="stat"><span>🎯 ASSISTS</span><span>${p.assists}</span></div>
+        <div class="stat"><span>📊 G+A</span><span>${p.goals+p.assists}</span></div>
+        <div class="rank">GOAL RANK #${p.goalRank}</div>
+      </a>
+    `;
+  });
+
+  // --- 検索バー対応 ---
+  const search = document.getElementById("playerSearch");
+  search.addEventListener("keyup", ()=>{
+    const keyword = search.value.toLowerCase();
+    document.querySelectorAll(".player-card").forEach(card=>{
+      const name = card.querySelector("h3").innerText.toLowerCase();
+      card.style.display = name.includes(keyword) ? "block" : "none";
+    });
+  });
+
+}
+
+// 最初に2026シーズンを読み込み
+loadSeason("2026");
+</script>
+</body>
+</html>
