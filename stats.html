@@ -9,18 +9,15 @@
 <body>
 
 <header class="header">
-  
-   <a href="index.html" class="logo">NEW PESSI JEANS</a>
+<a href="index.html" class="logo">NEW PESSI JEANS</a>
 
-  <nav>
-    <a href="NEWS.html">NEWS</a>
-    <a href="member.html">MEMBERS</a>
-    <a href="MATCH.html">MATCH</a>
-    <a href="stats.html">STATS</a>
-    <a href="team.html">TEAM RECORD</a>
-    <a href="ABOUT.html">ABOUT</a>
-    <a href="GALLERY.html">GALLERY</a>
-  </nav>
+<nav>
+<a href="NEWS.html">NEWS</a>
+<a href="member.html">MEMBERS</a>
+<a href="stats.html">STATS</a>
+<a href="ABOUT.html">ABOUT</a>
+<a href="GALLERY.html">GALLERY</a>
+</nav>
 </header>
 
 <section class="stats">
@@ -29,16 +26,16 @@
 
 <input type="text" id="playerSearch" placeholder="🔍 Search Player..." class="player-search">
 
-<div class="season-switch">
-
-<button onclick="loadSeason('2026')">2026 SEASON</button>
-<button onclick="loadSeason('2027')">2027 SEASON</button>
-
+<div class="sort-buttons">
+<button onclick="sortPlayers('goals')">⚽ GOALS</button>
+<button onclick="sortPlayers('assists')">🎯 ASSISTS</button>
+<button onclick="sortPlayers('ga')">📊 G+A</button>
+<button onclick="sortPlayers('matches')">📅 MATCHES</button>
 </div>
-<h2>2026/3/5~</h2>
 
-<div class="stats-section">
+
 <h2>GOAL RANKING</h2>
+
 <table class="ranking" id="goalTable">
 <thead>
 <tr>
@@ -49,10 +46,11 @@
 </thead>
 <tbody></tbody>
 </table>
-</div>
 
 <div class="stats-section">
-<h2>ASSIST RANKING</h2>
+
+  <h2>ASSIST RANKING</h2>
+
 <table class="ranking" id="assistTable">
 <thead>
 <tr>
@@ -63,124 +61,309 @@
 </thead>
 <tbody></tbody>
 </table>
+
+<h2>PLAYER STATS</h2>
+
+<div class="player-stats-cards" id="playerCards"></div>
+
 </div>
 
-<div class="stats-section">
-<h2>PLAYER STATS</h2>
-<div class="player-stats-cards" id="playerCards"></div>
+
+
+<div class="team-stats">
+
+<div class="team-stat">
+<h3>TOTAL MATCHES</h3>
+<p id="totalMatches"></p>
+</div>
+
+<div class="team-stat">
+<h3>TOTAL GOALS</h3>
+<p id="totalGoals"></p>
+</div>
+
+<div class="team-stat">
+<h3>TOTAL ASSISTS</h3>
+<p id="totalAssists"></p>
+</div>
+
+<div class="team-stat">
+<h3>TOP SCORER</h3>
+<p id="topScorer"></p>
+</div>
+
 </div>
 
 
 
 </section>
+
 <script>
-const seasons = {
-  "2026": [
-    {date:"2026-03-05", players:["Ryota","Orataro","Miyabi","Ishan","Kaito"], scorers:["Ryota"], assists:["Kaito"]},
-  ],
-  "2027": [
-    {date:"2027-04-10", players:["Ryota","Miyabi"], scorers:["Miyabi"], assists:["Ryota"]},
-  ]
-};
 
 const players = [
-  {name:"Ryota", image:"ryouta.png", link:"ryota.html", goals:0, assists:0, matches:0},
-  {name:"Orataro", image:"kento.png", link:"orataro.html", goals:0, assists:0, matches:0},
-  {name:"Miyabi", image:"kimoiyatukarakitagazou.png", link:"miyabi.html", goals:0, assists:0, matches:0},
-  {name:"Ishan", image:"isan2.png", link:"pessi.html", goals:0, assists:0, matches:0},
-  {name:"Yuma", image:"yumasan2.png", link:"yuma.html", goals:0, assists:0, matches:0},
-  {name:"Kilyn", image:"Kilyn2222.png", link:"kilyn.html", goals:0, assists:0, matches:0},
-  {name:"Taro", image:"tarou2.png", link:"tarou.html", goals:0, assists:0, matches:0},
-  {name:"Aleks", image:"alex2.png", link:"alex.html", goals:0, assists:0, matches:0},
-  {name:"KO", image:"kosann2.png", link:"KOsann.html", goals:0, assists:0, matches:0},
+
+{name:"Ryota", image:"ryouta.png", link:"ryota.html", matches:10, goals:1, assists:3},
+
+{name:"Orataro", image:"kento.png", link:"orataro.html", matches:17, goals:0, assists:0},
+
+{name:"Miyabi", image:"kimoiyatukarakitagazou.png", link:"miyabi.html", matches:17, goals:20, assists:6},
+
+{name:"Ishan", image:"isan2.png", link:"pessi.html", matches:13, goals:0, assists:1},
+
+{name:"Yuma", image:"yumasan2.png", link:"yuma.html", matches:17, goals:6, assists:19},
+
+{name:"Kilyn", image:"kilyn2222.png", link:"kilyn.html", matches:17, goals:7, assists:6},
+
+{name:"Taro", image:"tarou2.png", link:"tarou.html", matches:10, goals:6, assists:6},
+
+{name:"Aleks", image:"alex2.png", link:"alex.html", matches:0, goals:0, assists:0},
+
+{name:"KO", image:"kosann2.png", link:"KOsann.html", matches:11, goals:5, assists:3}
+
 ];
 
-// --- シーズン読み込み ---
-function loadSeason(season) {
+function loadStats(){
 
-  // localStorage のデータを優先
-  let seasonData = JSON.parse(localStorage.getItem(`season_${season}`)) || seasons[season];
+const goalRanking=[...players].sort((a,b)=>b.goals-a.goals)
 
-  // 選手データ初期化
-  players.forEach(p => { p.goals=0; p.assists=0; p.matches=0; });
+goalRanking.forEach((p,i)=>p.rank=i+1)
 
-  // 試合データから自動計算
-  seasonData.forEach(match => {
-    match.players.forEach(name => {
-      const player = players.find(p => p.name === name);
-      if(player) player.matches++;
-    });
-    match.scorers.forEach(name => {
-      const player = players.find(p => p.name === name);
-      if(player) player.goals++;
-    });
-    match.assists.forEach(name => {
-      const player = players.find(p => p.name === name);
-      if(player) player.assists++;
-    });
-  });
+const goalBody=document.querySelector("#goalTable tbody")
+goalBody.innerHTML=""
 
-  // --- ランキング ---
-  const goalRanking = [...players].sort((a,b)=>b.goals-a.goals);
-  const assistRanking = [...players].sort((a,b)=>b.assists-a.assists);
-  const gaRanking = [...players].sort((a,b)=>(b.goals+b.assists)-(a.goals+a.assists));
+goalRanking.forEach((p,i)=>{
 
-  goalRanking.forEach((p,i)=>p.goalRank=i+1);
-  assistRanking.forEach((p,i)=>p.assistRank=i+1);
-  gaRanking.forEach((p,i)=>p.gaRank=i+1);
 
-  // --- 表更新 ---
-  const goalBody = document.querySelector("#goalTable tbody");
-  const assistBody = document.querySelector("#assistTable tbody");
-  const cards = document.getElementById("playerCards");
+goalBody.innerHTML+=`
 
-  goalBody.innerHTML = "";
-  assistBody.innerHTML = "";
-  cards.innerHTML = "";
+<tr>
+<td>${i+1}</td>
+<td>${medal} ${p.name}</td>
+<td>${p.goals}</td>
+</tr>
 
-  goalRanking.forEach((p,i)=>{
-    goalBody.innerHTML += `<tr><td>${i+1}</td><td>${p.name}</td><td>${p.goals}</td></tr>`;
-  });
+`
 
-  assistRanking.forEach((p,i)=>{
-    assistBody.innerHTML += `<tr><td>${i+1}</td><td>${p.name}</td><td>${p.assists}</td></tr>`;
-  });
+})
 
-  players.forEach(p=>{
-    let badge = "";
-    if(p.goalRank===1) badge="🥇";
-    else if(p.goalRank===2) badge="🥈";
-    else if(p.goalRank===3) badge="🥉";
-
-    let topClass = p.goalRank===1 ? "top-player" : "";
-
-    cards.innerHTML += `
-      <a href="${p.link}" class="player-card ${topClass}">
-        <img src="${p.image}">
-        <h3>${badge} ${p.name}</h3>
-        <div class="stat"><span>📅 MATCHES</span><span>${p.matches}</span></div>
-        <div class="stat"><span>⚽ GOALS</span><span>${p.goals}</span></div>
-        <div class="stat"><span>🎯 ASSISTS</span><span>${p.assists}</span></div>
-        <div class="stat"><span>📊 G+A</span><span>${p.goals+p.assists}</span></div>
-        <div class="rank">GOAL RANK #${p.goalRank}</div>
-      </a>
-    `;
-  });
-
-  // --- 検索バー対応 ---
-  const search = document.getElementById("playerSearch");
-  search.addEventListener("keyup", ()=>{
-    const keyword = search.value.toLowerCase();
-    document.querySelectorAll(".player-card").forEach(card=>{
-      const name = card.querySelector("h3").innerText.toLowerCase();
-      card.style.display = name.includes(keyword) ? "block" : "none";
-    });
-  });
+displayPlayers(players)
 
 }
 
-// 最初に2026シーズンを読み込み
-loadSeason("2026");
+function displayPlayers(list){
+
+const cards=document.getElementById("playerCards")
+
+cards.innerHTML=""
+
+list.forEach(p=>{
+
+let medal=""
+
+if(p.rank===1) medal="🥇"
+else if(p.rank===2) medal="🥈"
+else if(p.rank===3) medal="🥉"
+
+cards.innerHTML+=`
+
+<a href="${p.link}" class="player-card">
+
+<img src="${p.image}">
+
+<h3>${medal} ${p.name}</h3>
+
+<div class="stat"><span>📅 MATCHES</span><span>${p.matches}</span></div>
+
+<div class="stat"><span>⚽ GOALS</span><span>${p.goals}</span></div>
+
+<div class="stat"><span>🎯 ASSISTS</span><span>${p.assists}</span></div>
+
+<div class="stat"><span>📊 G+A</span><span>${p.goals+p.assists}</span></div>
+
+</a>
+
+`
+
+})
+
+}
+
+function sortPlayers(type){
+
+let sorted=[...players]
+
+if(type==="goals") sorted.sort((a,b)=>b.goals-a.goals)
+
+if(type==="assists") sorted.sort((a,b)=>b.assists-a.assists)
+
+if(type==="matches") sorted.sort((a,b)=>b.matches-a.matches)
+
+if(type==="ga") sorted.sort((a,b)=>(b.goals+b.assists)-(a.goals+a.assists))
+
+displayPlayers(sorted)
+
+}
+
+const search=document.getElementById("playerSearch")
+
+search.addEventListener("keyup",()=>{
+
+const keyword=search.value.toLowerCase()
+
+document.querySelectorAll(".player-card").forEach(card=>{
+
+const name=card.querySelector("h3").innerText.toLowerCase()
+
+card.style.display=name.includes(keyword)?"block":"none"
+
+})
+
+})
+
+function loadTeamRecord(){
+
+let totalGoals=0
+let totalAssists=0
+let totalMatches=0
+
+players.forEach(p=>{
+
+totalGoals+=p.goals
+totalAssists+=p.assists
+
+if(p.matches>totalMatches){
+totalMatches=p.matches
+}
+
+})
+
+let topPlayer=[...players].sort((a,b)=>b.goals-a.goals)[0]
+
+document.getElementById("totalMatches").innerText=totalMatches
+document.getElementById("totalGoals").innerText=totalGoals
+document.getElementById("totalAssists").innerText=totalAssists
+document.getElementById("topScorer").innerText=`${topPlayer.name} (${topPlayer.goals}G)`
+
+}
+
+loadStats()
+loadTeamRecord()
+createPodium(goalRanking)
+
+function createPodium(ranking){
+
+const podium=document.getElementById("podium")
+
+const first=ranking[0]
+const second=ranking[1]
+const third=ranking[2]
+
+podium.innerHTML=`
+
+<div class="podium-container">
+
+<div class="podium-player second">
+🥈
+<img src="${second.image}">
+<p>${second.name}</p>
+<span>${second.goals}G</span>
+</div>
+
+<div class="podium-player first">
+🥇
+<img src="${first.image}">
+<p>${first.name}</p>
+<span>${first.goals}G</span>
+</div>
+
+<div class="podium-player third">
+🥉
+<img src="${third.image}">
+<p>${third.name}</p>
+<span>${third.goals}G</span>
+</div>
+
+</div>
+
+`
+
+
+let topClass=""
+
+if(p.rank===1) topClass="gold-card"
+}
+
+function loadStats(){
+
+const goalRanking=[...players].sort((a,b)=>b.goals-a.goals)
+const assistRanking=[...players].sort((a,b)=>b.assists-a.assists)
+
+goalRanking.forEach((p,i)=>p.rank=i+1)
+
+const goalBody=document.querySelector("#goalTable tbody")
+const assistBody=document.querySelector("#assistTable tbody")
+
+goalBody.innerHTML=""
+assistBody.innerHTML=""
+
+goalRanking.forEach((p,i)=>{
+
+let medal=""
+
+if(i===0) medal="🥇"
+else if(i===1) medal="🥈"
+else if(i===2) medal="🥉"
+
+goalBody.innerHTML+=`
+
+<tr>
+<td>${i+1}</td>
+<td>${p.name}</td>
+<td>${p.goals}</td>
+</tr>
+
+`
+
+})
+
+assistRanking.forEach((p,i)=>{
+
+assistBody.innerHTML+=`
+
+<tr>
+<td>${i+1}</td>
+<td>${p.name}</td>
+<td>${p.assists}</td>
+</tr>
+
+`
+
+})
+
+displayPlayers(players)
+
+}
+
+const totalMatches =
+players.reduce((sum,p)=>sum+p.matches,0)
+
+const totalGoals =
+players.reduce((sum,p)=>sum+p.goals,0)
+
+const totalAssists =
+players.reduce((sum,p)=>sum+p.assists,0)
+
+const topScorer =
+players.sort((a,b)=>b.goals-a.goals)[0].name
+
+document.getElementById("totalMatches").textContent = totalMatches
+document.getElementById("totalGoals").textContent = totalGoals
+document.getElementById("totalAssists").textContent = totalAssists
+document.getElementById("topScorer").textContent = topScorer
+
+
+
 </script>
+
 </body>
 </html>

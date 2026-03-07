@@ -2229,3 +2229,272 @@ background:gold;
 color:black;
 
 }
+
+/* =============================== */
+/* STATS PAGE */
+/* =============================== */
+
+/* タイトル */
+
+.stats-title{
+text-align:center;
+margin-top:120px;
+letter-spacing:4px;
+color:gold;
+font-size:42px;
+}
+
+/* 検索 */
+
+.search-box{
+text-align:center;
+margin:30px 0;
+}
+
+.search-box input{
+
+width:220px;
+padding:8px 15px;
+
+background:black;
+border:2px solid gold;
+
+color:white;
+
+border-radius:20px;
+
+text-align:center;
+
+}
+
+/* 並び替え */
+
+.sort-buttons{
+
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:30px;
+
+}
+
+.sort-buttons button{
+
+padding:8px 18px;
+
+background:black;
+
+border:2px solid gold;
+
+color:gold;
+
+font-weight:bold;
+
+cursor:pointer;
+
+border-radius:20px;
+
+transition:0.3s;
+
+}
+
+.sort-buttons button:hover{
+
+background:gold;
+color:black;
+
+box-shadow:0 0 10px gold;
+
+}
+
+/* ランキング */
+
+.ranking-title{
+
+text-align:center;
+color:gold;
+margin-top:40px;
+
+}
+
+.ranking-table{
+
+margin:auto;
+
+border-collapse:collapse;
+
+width:420px;
+max-width:90%;
+
+}
+
+.ranking-table th{
+
+border-bottom:2px solid gold;
+
+padding:10px;
+
+}
+
+.ranking-table td{
+
+padding:8px;
+
+border-bottom:1px solid #333;
+
+}
+
+/* TEAM RECORD */
+
+/* ================= */
+/* TEAM STATS */
+/* ================= */
+
+.team-stats{
+
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:40px;
+
+}
+
+.team-stat{
+
+background:linear-gradient(145deg,#111,#000);
+
+border:2px solid gold;
+
+border-radius:16px;
+
+padding:30px 40px;
+
+min-width:160px;
+
+text-align:center;
+
+transition:0.3s;
+
+}
+
+.team-stat:hover{
+
+transform:translateY(-6px);
+
+box-shadow:
+0 0 15px rgba(255,215,0,0.6),
+0 0 40px rgba(255,215,0,0.2);
+
+}
+
+.team-stat h3{
+
+color:gold;
+font-size:13px;
+letter-spacing:2px;
+
+}
+
+.team-stat p{
+
+font-size:30px;
+font-weight:bold;
+margin-top:10px;
+
+}
+
+@media (max-width:768px){
+
+.member-cardds img{
+  width:100%;
+  height:280px;
+  object-fit:contain;
+}
+
+}
+
+/* ===== STATS MOBILE ===== */
+@media screen and (max-width:768px){
+
+.stats{
+padding:20px 10px;
+}
+
+/* タイトル */
+.stats-title{
+font-size:24px;
+text-align:center;
+margin-bottom:20px;
+}
+
+/* 検索 */
+.player-search{
+width:90%;
+max-width:300px;
+display:block;
+margin:0 auto 20px;
+padding:10px;
+font-size:14px;
+}
+
+/* 並び替えボタン */
+.sort-buttons{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:8px;
+margin-bottom:20px;
+}
+
+.sort-buttons button{
+font-size:12px;
+padding:8px 10px;
+}
+
+/* ランキング */
+.ranking{
+width:100%;
+font-size:13px;
+}
+
+.ranking th,
+.ranking td{
+padding:6px;
+}
+
+/* プレイヤーカード */
+.player-stats-cards{
+display:grid !important;
+grid-template-columns:1fr !important;
+gap:15px;
+margin-top:20px;
+}
+
+.player-card{
+padding:15px;
+}
+
+/* チームスタッツ */
+.team-stats{
+display:grid !important;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:30px;
+}
+
+.team-stat{
+padding:15px;
+text-align:center;
+}
+
+.team-stat h3{
+font-size:13px;
+}
+
+.team-stat p{
+font-size:18px;
+}
+
+}
+
